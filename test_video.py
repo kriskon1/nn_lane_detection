@@ -5,7 +5,6 @@ from ultralytics import YOLO
 import utils
 from skimage.morphology import skeletonize
 
-
 WIDTH = 1280
 HEIGHT = 720
 INPUT_WIDTH = 256
@@ -16,7 +15,6 @@ coco_class_list = open("coco.txt", "r")
 data = coco_class_list.read()
 class_list = data.split("\n")
 
-
 # model = load_model('model/model_for_lane_tuned_adam_binary_batch16_v2.keras')
 # model = load_model('model/model_for_lane_tuned_adam_binary_batch16_resnet50_unet_fixed.keras')
 # model = load_model('model/model_unet_aug_att.keras')
@@ -25,15 +23,7 @@ model = load_model('model/model_unet_att.keras')
 # model = load_model('model/model_unet_resnet50_unet_aug_att_conv2d.keras')
 model_YOLO = YOLO("model/yolov10n.pt")
 
-
-# cap = cv2.VideoCapture("D:/Programozás/Python/Lane_detection/videos/video.hevc")
-# cap = cv2.VideoCapture("D:/Programozás/Python/Lane_detection/videos/framestestvideo24.avi")
 cap = cv2.VideoCapture("D:/Programozás/Python/Lane_detection/videos/tusimple_video.avi")
-# cap = cv2.VideoCapture("D:/Programozás/Python/Lane_detection/videos/NO20230924-121041-000402F.mp4")
-# cap = cv2.VideoCapture("D:/Programozás/Python/Lane_detection/videos/IMG_8006.mov")
-# cap = cv2.VideoCapture("D:/Programozás/Python/Lane_detection/videos/IMG_8007.MOV")
-# cap = cv2.VideoCapture("D:/Programozás/Python/Lane_detection/videos/IMG_8008.mov")
-
 
 while cap.isOpened():
     success, frame_orig = cap.read()
@@ -59,13 +49,10 @@ while cap.isOpened():
         cx, cy, x1, bly, x2, y2, img = utils.draw_vehicles(frame_with_lanes, vehicle_results[0], class_list, TARGET_CLASSES)
         cv2.imshow("pred", img)
 
-        # Break the loop if 'q' is pressed
         if cv2.waitKey(1) & 0xFF == ord("q"):
             break
     else:
-        # Break the loop if the end of the video is reached
         break
 
-# Release the video capture object and close the display window
 cap.release()
 cv2.destroyAllWindows()
