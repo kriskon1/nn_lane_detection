@@ -29,7 +29,7 @@ def draw_lanes(img, prediction, width, height):
     return img
 
 
-def draw_lane(img, prediction, width, height):     # alap rajzolás
+def draw_lanes_basic(img, prediction, width, height):
     prediction = cv2.resize(prediction, (width, height), interpolation=cv2.INTER_LANCZOS4)
     mask = (prediction > 0.5).astype(np.uint8)
     mask_resize = cv2.resize(mask, ((img.shape[1]), (img.shape[0])), interpolation=cv2.INTER_CUBIC)
@@ -47,7 +47,7 @@ def draw_ego_lane(img, prediction, width, height):
     if contours:
         image_center_x = prediction.shape[1] // 2
 
-        # Initialize variables to find the ego lane
+        # Initialize variables
         left_ego_lane = None
         right_ego_lane = None
         min_left_distance = float('inf')
@@ -72,7 +72,6 @@ def draw_ego_lane(img, prediction, width, height):
                         min_right_distance = distance_to_center
                         right_ego_lane = contour
 
-        # Draw the identified left and right ego lane boundaries
         if left_ego_lane is not None:
             left_ego_lane[:, :, 1] += 350
             cv2.drawContours(img, [left_ego_lane], -1, (255, 0, 0), 4)
