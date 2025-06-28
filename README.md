@@ -5,3 +5,5 @@ Unet based lane detection network with a Resnet50 encoder, augmentation and spat
 Post processing to enhance predicted lanes: blur, skeletonize, roi, countour selection.
 
 Ego lane detection.
+
+Short summary: Course_thesis_summary.pdf
